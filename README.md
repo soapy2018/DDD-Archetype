@@ -1,20 +1,39 @@
-#set( $P = '#' )
-$P$P ${rootArtifactId}
+## DDD-archetype
+本工程为应用研发部maven archetype项目,皆在简化工程搭建，规范项目结构.
 
-$P$P 项目说明
+## 使用说明
 
-* ${rootArtifactId}-service
+### maven命令创建项目
+#### 在你的工程目录下执行命令
+mvn archetype:generate -DgroupId=`com.bluetron.app.autopart` -DartifactId=`testApp` -Dversion=`1.0.0-SNAPSHOT`
+-Dpackage=`com.bluetron.app.autopart.testApp` -DarchetypeGroupId=com.bluetron.archetype -DarchetypeArtifactId=DDD-archetype
+-DarchetypeVersion=1.0.0-SNAPSHOT
 
-    1. 后台核心服务 <br>
-    2. 端口：
+#### 标记部分项目groupId、artifactId、package、version需要自行指定
 
-* ${rootArtifactId}-api
+### IDEA 使用说明
+#### 初次使用请配置本步骤
+1. New Project -> Maven -> Add Archetype，如图
+![添加archetype](docs/img/0bb9ec26b2d72d0269d9ade1ac8ca01.png)
 
-  api 客户端，包括DTO,枚举，客户端调用等
+2. 填入archetype信息，如图
+```pom
+<dependency>
+  <groupId>com.bluetron.archetype</groupId>
+  <artifactId>DDD-archetype</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+![填入archetype信息](docs/img/图片1.png)
 
+#### 创建项目
+1. 选择com.bluetron.archetype:DDD.archetype骨架
+![选择骨架](docs/img/图片2.png)
 
-$P$P 项目结构
+2. 填入工程信息，完成工程创建
+![填入工程信息](docs/img/图片3.png)
 
+## 生成项目的结构
 ```
 ${rootArtifactId}
 │ 
@@ -92,39 +111,14 @@ ${rootArtifactId}
 |    ├─common   枚举类
 |
 ```
+## 效果演示
+![效果](docs/img/使用说明.gif)
 
-$P$P 启动
+## 版本
+* 1.0.0 首发版本
 
-* 基于appliccation 类启动
-
-  >  配置jvm 参数：-Dspring.profiles.active=dev
-* 基于springBoot maven 插件
-
-  > spring-boot:run -Dspring-boot.run.profiles=dev
-* IDEA 以类的main方式启动
-
-  > 添加启动参数：--spring.profiles.active=dev
+## 联系作者
+* chenqingfeng@supos.com
 
 
-$P$P 依赖说明
-`依赖详细使用方式请见各项目地址`
 
-|功能|Maven坐标|项目地址|项目地址|
-|---|---|---|---|
-|supOS SDK|com.bluetron.sdk:bluetron-java-sdk|http://gitlab.nb.bluetron.cn/bluetron-app-middle/bluetron-app-middle-sdk|封装了supOS鉴权、用户、对象等部分接口|
-|supOS SDK starter|com.bluetron.app:bluetron-app-starter-sdk|http://gitlab.nb.bluetron.cn/bluetron-app-starter/bluetron-app-starter-sdk|supOS SDK starter|
-|spring web相关配置|bluetron-nb-common:bluetron-nb-common-sb-starter|http://gitlab.bluetron.com/bluetron-framework/bluetron-nb-common/bluetron-nb-common-sb-starter|app自动配置，异常拦截，全局SpringContextHolder,Web日志拦截等|
-|缓存|bluetron-nb-common:bluetron-nb-common-redis-starter|http://gitlab.bluetron.com/bluetron-framework/bluetron-nb-common/bluetron-nb-common-redis-starter|封装了redis|
-|数据库配置|bluetron-nb-common:bluetron-nb-common-db-starte|http://gitlab.bluetron.com/bluetron-framework/bluetron-nb-common/bluetron-nb-common-db-starter|Mybatis数据库配置|
-|分布式任务|bluetron-nb-common:bluetron-nb-common-job-starte|http://gitlab.bluetron.com/bluetron-framework/bluetron-nb-common/bluetron-nb-common-job-starter|xxlJob配置|
-|swagger2配置|bluetron-nb-common:bluetron-nb-common-swagger2-starte|http://gitlab.bluetron.com/bluetron-framework/bluetron-nb-common/bluetron-nb-common-swagger2-starter|swagger2配置|
-|常用工具类|bluetron-nb-common:bluetron-nb-common-util|http://gitlab.bluetron.com/bluetron-framework/bluetron-nb-common/bluetron-nb-common-util|常用工具类|
-|基础包|bluetron-nb-common:bluetron-nb-common-base|http://gitlab.bluetron.com/bluetron-framework/bluetron-nb-common/bluetron-nb-common-base|底层entity、各种父类等|
-
-
-本项目创建自[DDD-archetype](http://gitlab.nb.bluetron.cn/shiming/bss-app-archetype)
-
-$P$P arthas
-```shell script
-docker exec -it $(docker ps|grep ${rootArtifactId}|grep java|awk '{print $1}') /bin/sh -c "wget -O/dev/null http://192.168.8.74/tool/arthas/arthas-bin.tar && tar -vxf arthas-bin.tar >dev/null && java -jar ./arthas-bin/arthas-boot.jar"
-```

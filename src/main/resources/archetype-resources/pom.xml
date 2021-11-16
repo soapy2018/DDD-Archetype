@@ -1,98 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>${groupId}</groupId>
-  <artifactId>${artifactId}</artifactId>
-  <version>${version}</version>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <version>${version}</version>
+    <packaging>pom</packaging>
 
-  <parent>
+    <parent>
         <groupId>com.bluetron.app</groupId>
         <artifactId>bluetron-app-parent</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.1.1.RELEASE</version>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <revision>1.0.0.RELEASE</revision>
+        <revision-max>1.0.4.RELEASE</revision-max>
+        <high-version>1.0.2.RELEASE</high-version>
+        <bluetron-app-starter-sdk.version>1.1.3-SNAPSHOT</bluetron-app-starter-sdk.version>
+        <bluetron-java-sdk.version>1.1.6-SNAPSHOT</bluetron-java-sdk.version>
+        <bluetron-common.version>1.0.0-SNAPSHOT</bluetron-common.version>
+        <docker.baseImage>docker.nb.bluetron.cn/library/openjdk:8-jdk-alpine-utc8-dr-ft</docker.baseImage>
+        <docker.volumes>/tmp</docker.volumes>
+        <docker.image.prefix>docker.nb.bluetron.cn/${artifactId}-service</docker.image.prefix>
+        <docker.java.security.egd>-Djava.security.egd=file:/dev/./urandom</docker.java.security.egd>
     </properties>
 
     <dependencies>
-        <!--do not specify the version, it inherits from parent pom-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
 
+        <!--do not specify the version, it inherits from parent pom-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!--mybatis-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-
-        <!-- basic common component, version should move to parent pom later-->
-        <dependency>
-            <groupId>com.bluetron.app</groupId>
-            <artifactId>bluetron-app-common-basic</artifactId>
-            <version>1.0.4.RELEASE</version>
-        </dependency>
-		
-		<dependency>
-            <groupId>com.bluetron.app</groupId>
-            <artifactId>ddd-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <!-- should change version-->
-        <!--    <dependency>-->
-        <!--      <groupId>com.bluetron.sdk</groupId>-->
-        <!--      <artifactId>bluetron-java-sdk</artifactId>-->
-        <!--      <version>2.0.4-SNAPSHOT-autoparts</version>-->
-        <!--    </dependency>-->
-        <!-- should move to parent pom-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.23</version>
-        </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.2.0.Final</version>
         </dependency>
 
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-extension</artifactId>
-            <version>3.4.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+            <groupId>com.bluetron.nb</groupId>
+            <artifactId>bluetron-nb-common-base</artifactId>
+            <version>${bluetron-common.version}</version>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-service</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-api</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.bluetron.app</groupId>
+                <artifactId>bluetron-app-starter-sdk</artifactId>
+                <version>${bluetron-app-starter-sdk.version}</version>
+            </dependency>
+            <!-- 见http://gitlab.nb.bluetron.cn/bluetron-app-middle/bluetron-app-middle-sdk -->
+            <dependency>
+                <groupId>com.bluetron.sdk</groupId>
+                <artifactId>bluetron-java-sdk</artifactId>
+                <version>${bluetron-java-sdk.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

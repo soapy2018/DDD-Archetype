@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>${groupId}</groupId>
+        <artifactId>${rootArtifactId}</artifactId>
+        <version>${version}</version>
+    </parent>
+
+    <artifactId>${rootArtifactId}-service</artifactId>
+    <packaging>jar</packaging>
+    <version>${version}</version>
+
+    <properties>
+        <docker.image.prefix>docker.nb.bluetron.cn/bluetron</docker.image.prefix>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bluetron.app</groupId>
+            <artifactId>bluetron-app-starter-sdk</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bluetron.nb</groupId>
+            <artifactId>bluetron-nb-common-util</artifactId>
+            <version>${bluetron-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bluetron.nb</groupId>
+            <artifactId>bluetron-nb-common-sb-starter</artifactId>
+            <version>${bluetron-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bluetron.nb</groupId>
+            <artifactId>bluetron-nb-common-redis-starter</artifactId>
+            <version>${bluetron-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bluetron.nb</groupId>
+            <artifactId>bluetron-nb-common-db-starter</artifactId>
+            <version>${bluetron-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bluetron.nb</groupId>
+            <artifactId>bluetron-nb-common-job-starter</artifactId>
+            <version>${bluetron-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bluetron.nb</groupId>
+            <artifactId>bluetron-nb-common-swagger2-starter</artifactId>
+            <version>${bluetron-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <!-- rabbitMQ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <!--devtools热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.build.finalName}</imageName>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <forceTags>true</forceTags>
+                    <baseImage>${docker.baseImage}</baseImage>
+                    <volumes>${docker.volumes}</volumes>
+                    <env>
+                        <JAVA_OPTS>${docker.java.opts}</JAVA_OPTS>
+                    </env>
+                    <entryPoint>["sh","-c","java $JAVA_OPTS ${docker.java.security.egd} -jar
+                        /${project.build.finalName}.jar"]
+                    </entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

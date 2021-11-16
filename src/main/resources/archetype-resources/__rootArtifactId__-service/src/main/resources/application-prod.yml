@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.8.133:53306/${rootArtifactId}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    schema:
+      - classpath:sql/schema.sql
+    data:
+      - classpath:sql/data.sql
+    continue-on-error: true
+    initialization-mode: always
+    sql-script-encoding: utf-8
+    hikari:
+      maximumPoolSize: 10
+      minimumIdle: 2
+      idleTimeout: 600000
+      connectionTimeout: 30000
+      maxLifetime: 1800000
+  redis:
+    clueter:
+      nodes: 192.168.8.133:8001,192.168.8.133:8002,192.168.8.119:8003,192.168.8.133:8004,192.168.8.133:8005,192.168.8.133:8006
+      timeout: 5000
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.8.133:58848
+        username: nacos
+        password: nacos
+app:
+  package-version: 20200706
+
+bluetron:
+  sdk:
+    debug-enable: true
+    enabled: true
+    request-url: http://192.168.8.100
+    request-port: 8080
+    app-id: 3bdd16c94781442fb8a073fe236f0c2a
+    app-secret: 927314860E0BEFF375782D984047D6E2
+    app-version: 2.70.01.00-200911-C
+    read-timeout: 30
+    app-data:
+      factory-model: app_template_network
+    accept-language: zh-cn
+    aksk-enable: false
+
+

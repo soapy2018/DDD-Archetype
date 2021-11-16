@@ -1,0 +1,79 @@
+[
+  {
+    "code": "001",
+    "operationType": "Inbound",
+    "businessName": "生产入库",
+    "warehouseType": "FG,SUB_FG,GOODS_IN_PROCESS",
+    "description": "系统默认"
+  },
+  {
+    "code": "002",
+    "operationType": "Outbound",
+    "businessName": "领料出库",
+    "warehouseType": "MATERIAL,GOODS_IN_PROCESS,SUB_FG",
+    "description": "系统默认"
+  },
+  {
+    "code": "003",
+    "operationType": "Inbound",
+    "businessName": "采购入库",
+    "warehouseType": "MATERIAL,SUB_FG,SPARE_PARTS,CONSUMABLE,PACKING_MATERIAL",
+    "description": "系统默认"
+  },
+  {
+    "code": "004",
+    "operationType": "Outbound",
+    "businessName": "销售出库",
+    "warehouseType": "FG,SUB_FG",
+    "description": "系统默认"
+  },
+  {
+    "code": "005",
+    "operationType": "Inbound",
+    "businessName": "销售退货",
+    "warehouseType": "FG,SUB_FG",
+    "description": "系统默认"
+  },
+  {
+    "code": "006",
+    "operationType": "Outbound",
+    "businessName": "采购退货",
+    "warehouseType": "MATERIAL,SUB_FG,SPARE_PARTS,CONSUMABLE,PACKING_MATERIAL",
+    "description": "系统默认"
+  },
+  {
+    "code": "007",
+    "operationType": "Inbound",
+    "businessName": "生产退料",
+    "warehouseType": "MATERIAL,GOODS_IN_PROCESS,SUB_FG",
+    "description": "系统默认"
+  },
+  {
+    "code": "008",
+    "operationType": "Outbound",
+    "businessName": "调拨出库",
+    "warehouseType": "ALL",
+    "description": "系统默认"
+  },
+  {
+    "code": "009",
+    "operationType": "Inbound",
+    "businessName": "调拨入库",
+    "warehouseType": "ALL",
+    "description": "系统默认"
+  },
+  {
+    "code": "010",
+    "operationType": "Inbound",
+    "businessName": "盘盈入库",
+    "warehouseType": "ALL",
+    "description": "系统默认"
+  },
+  {
+    "code": "011",
+    "operationType": "Outbound",
+    "businessName": "盘亏出库",
+    "warehouseType": "ALL",
+    "description": "系统默认"
+  }
+]
